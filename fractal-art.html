@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,
+    inital-scale=1.0">
+    <title>Generative Art</title>
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+<body>
+    <!--Navbar-->
+    <div class="hero">
+        <nav>
+            <h1>Generative Art Project</h1>
+            <ul>
+              <li><a href="index.html" class="home-page">Home Page</a></li>
+                    <div class="dropdown">
+                    <li class="dropbtn">Interactive Platform</li>
+                    <div class="dropdown-content">
+                        <a href="fractal-art.html" class="nav-link">Fractal Art</a>
+                        <a href="random_cubes.html" class="nav-link">Random Cubes</a>
+                        <a href="suprematism.html">Suprematism</a>
+                      </div>
+                </div>
+              <li><a href="#" class="nav-link">Educational Platform</a></li>
+            </ul>
+        </nav>
+        <canvas id="canvas1"></canvas>
+    <div id="controls">
+        <button id="randomizeButton">Randomize!</button>
+        <div>
+            <label for="spread">Spread:</label>
+            <input id="spread" type="range" min="0.1" max="3.1" step="0.02" value="1">
+            
+            <label for="sides">Sides:</label>
+            <input id="sides" type="range" min="2" max="15" step="1" value="5">
+            
+            <label for="scale">Scale:</label>
+            <input id="scale" type="range" min="0.2" max="0.8" step="0.05" value="0.4">
+            
+            <label for="color">Color:</label>
+            <input id="color" type="color" min="0.2" max="0.8" step="0.05" value="0.4">
+        </div>
+
+
+        <button id="resetButton">Reset</button>
+    </div>
+    <script src="fractal.js"></script>
+
+    </div>
