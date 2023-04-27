@@ -119,15 +119,32 @@ ul{
     top: 20%;
 }
 
+#canvas4{
+    background: rgb(248, 248, 245);
+    position: absolute;
+    left: 20%;
+    top: 20%;
+}
+
+
 #controls{
     position:relative;
     padding: 20px;
-    left:px;
+    left:0px;
     top: 30px;
     width:250px;
     background: rgba(17, 8, 54, 0.3);
 
 }
+#controls1{
+    position:absolute;
+    padding: 20px;
+    right:0px;
+    top: 70px;
+    width:250px;
+    background: rgba(17, 8, 54, 0.3);
+}
+
 button{
     padding: 10px 40px;
     width: 225px;
@@ -137,3 +154,41 @@ label,input{
     color: white;
     font-size: 15px;
 }
+
+
+
+
+
+/* Path: index.html */
+.toggle-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .toggle-buttons button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #ccc;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .toggle-buttons button.active {
+    background-color: #333;
+  }
+  
+  #login-form, #register-form {
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  

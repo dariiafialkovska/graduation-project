@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,
+    inital-scale=1.0">
+    <title>Generative Art</title>
+    <link rel="stylesheet" href="style.css">
+
+
+</head>
+<body>
+    <!--Navbar-->
+    <div class="hero">
+        <nav>
+            <h1>Generative Art Project</h1>
+            <ul>
+              <li><a href="index.html" class="home-page">Home Page</a></li>
+                    <div class="dropdown">
+                    <li class="dropbtn">Interactive Platform</li>
+                    <div class="dropdown-content">
+                        <a href="fractal-art.html" class="nav-link">Fractal Art</a>
+                        <a href="random_cubes.html" class="nav-link">Random Cubes</a>
+                        <a href="suprematism.html">Suprematism</a>
+                      </div>
+                </div>
+              <li><a href="#" class="nav-link">Educational Platform</a></li>
+              <li><a href="#" class="nav-link">Log In</a></li>
+            </ul>
+        </nav>
+        <div class="toggle-buttons">
+            <button class="active" onclick="toggleLogin()">Login</button>
+            <button onclick="toggleRegister()">Register</button>
+        </div>
+        <div id="login-form">
+            
+            <form action="login.php" method="post">
+                <h2 style="color: blueviolet;">Welcome Back!</h2>
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="submit" value="Login">
+            </form>
+        </div>
+        <div id="register-form" style="display: none;">
+            <form action="register.php" method="post">
+                <input type="text" name="name" placeholder="Name" required>
+                <input type="text" name="surname" placeholder="Surname" required>
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="password" placeholder="Confirm Password" required>
+                <input type="submit" value="Register">
+            </form>
+        </div>
+    </div>
+
+    
+</body>
+</html>
+<script>
+ function toggleLogin() {
+  document.querySelector('.toggle-buttons button.active').classList.remove('active');
+  document.querySelector('.toggle-buttons button:first-child').classList.add('active');
+  document.querySelector('#login-form').style.display = 'block';
+  document.querySelector('#register-form').style.display = 'none';
+}
+
+function toggleRegister() {
+  document.querySelector('.toggle-buttons button.active').classList.remove('active');
+  document.querySelector('.toggle-buttons button:last-child').classList.add('active');
+  document.querySelector('#login-form').style.display = 'none';
+  document.querySelector('#register-form').style.display = 'block';
+}
+
+</script>

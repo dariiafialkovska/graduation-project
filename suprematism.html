@@ -8,9 +8,9 @@
     <title>Generative Art</title>
     <link rel="stylesheet" href="style.css">
 
-
 </head>
 <body>
+    
     <!--Navbar-->
     <div class="hero">
         <nav>
@@ -23,20 +23,107 @@
                         <a href="fractal-art.html" class="nav-link">Fractal Art</a>
                         <a href="random_cubes.html" class="nav-link">Random Cubes</a>
                         <a href="suprematism.html" class="nav-link">Suprematism</a>
+                        <a href="destijl.html" class="nav-link">De Stijl</a>
                       </div>
                 </div>
               <li><a href="#" class="nav-link">Educational Platform</a></li>
             </ul>
         </nav>
+
+
         <canvas id="canvas3"></canvas>
         <div id="controls">
+            <button id="selectBackground">Select a Background</button>
+            <select id="background">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <button>Select a Color Palette</button>
+            <select id="palette">
+                <option value="1">1
+                </option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+            <button id="randomizeArt">Randomize</button>
             <button id="addRect">Add Rectangle</button>
             <button id="addTriangle">Add Triangle</button>
             <button id="addLine">Add Line</button>
+            <button id="addStrokeCircle">Add Stroke Circle</button>
+            <button id="addFullCircle">Add Full Circle</button>
+            <button id="addHalfCircle">Add Half Circle</button>
             <button id="automaticAdd">Add Automaticly</button>
             <button id="stopAdd">Stop</button>
+            <button id="clearCanvas">Clear</button>
+            <button id="undoButton">Undo</button>
+            <button id="redoButton">Redo</button>
+            <label for="format">Save As</label>
+            <select id="format">
+                <option value="png">PNG</option>
+                <option value="jpeg">JPEG</option>
+                <option value="svg">SVG</option>
+            </select>
+            <button id="saveCanvas">Save Art</button>
     
     </div>
-    <script src="suprematism.js"></script>
+    <div id="controls1">
+            <button>Number of Canvases</button>
+            <select id="numberCanvases">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <button>Size Variation</button>
+            <select id="sizeVariation">
+                <option value="1">Constant</option>
+                <option value="2">Variable</option>
+                <option value="3">Wide</option>
+            </select>
+            <button>Select a Color Palette</button>
+            <select id="palette1">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+            <button>Select Background</button>
+            <select id="background1">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <button>Select number of Objects</button>
+            <select id="number">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <button>Spacing</button>
+            <select id="spacing">
+                <option value="1">Dense</option>
+                <option value="2">Medium</option>
+                <option value="3">Sparse</option>
+            </select>
+            <button id="createArt">Create Art</button>
+          
 
     </div>
+    </div>
+</body>
+<script src="suprematism.js"></script>
+</html>

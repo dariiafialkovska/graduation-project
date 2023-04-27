@@ -8,9 +8,9 @@
     <title>Generative Art</title>
     <link rel="stylesheet" href="style.css">
 
-
 </head>
 <body>
+    
     <!--Navbar-->
     <div class="hero">
         <nav>
@@ -22,15 +22,30 @@
                     <div class="dropdown-content">
                         <a href="fractal-art.html" class="nav-link">Fractal Art</a>
                         <a href="random_cubes.html" class="nav-link">Random Cubes</a>
-                        <a href="suprematism.html">Suprematism</a>
+                        <a href="suprematism.html" class="nav-link">Suprematism</a>
+                        <a href="destijl.html" class="nav-link">De Stijl</a>
                       </div>
                 </div>
               <li><a href="#" class="nav-link">Educational Platform</a></li>
-              <li><a href="login.html" class="nav-link">Log In</a></li>
             </ul>
         </nav>
-
+        <canvas id="canvas4"></canvas>
+        <div id="controls">
+            <button id="randomizeArtButton">Randomize Art</button>
+            <button id="clearCanvas">Clear</button>
+            <button id="previous">Previous</button>
+            <button id="next">Next</button>
+            <label for="format">Save As</label>
+            <select id="format">
+                <option value="png">PNG</option>
+                <option value="jpeg">JPEG</option>
+                <option value="svg">SVG</option>
+            </select>
+            <button id="saveCanvas">Save Art</button>
+    
     </div>
     
+    </div>
 </body>
+<script src="destijl.js"></script>
 </html>
