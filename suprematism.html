@@ -24,6 +24,8 @@
                         <a href="random_cubes.html" class="nav-link">Random Cubes</a>
                         <a href="suprematism.html" class="nav-link">Suprematism</a>
                         <a href="destijl.html" class="nav-link">De Stijl</a>
+                        <a href="op-art.html" class="nav-link">Op Art</a>
+
                       </div>
                 </div>
               <li><a href="#" class="nav-link">Educational Platform</a></li>
@@ -33,13 +35,23 @@
 
         <canvas id="canvas3"></canvas>
         <div id="controls">
+            <button id="#">Canvas Size</button>
+            <label for="canvas-size-checkbox-equal">Adjust to Screen Equal Sized</label>
+            <input type="checkbox" id="canvas-size-checkbox-equal" name="canvas-size-checkbox-equal">
+            <label for="canvas-size-checkbox-horizontal">Horizontal</label>
+            <input type="checkbox" id="canvas-size-checkbox-horizontal" name="canvas-size-checkbox-horizontal">
+            <label for="canvas-size-checkbox-horizontal">Screen Vertical</label>
+            <input type="checkbox" id="canvas-size-checkbox-vertical" name="canvas-size-checkbox-vertical">
+            <input type="text" id="canvas-size-height" name="canvas-size-height" value="Height" style="color: black;">
+            <input type="text" id="canvas-size-width" name="canvas-size-width" value="Width" style="color: black;">
+            <button id="canvas_size">Adjust</button>
             <button id="selectBackground">Select a Background</button>
-            <select id="background">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
+            <select class="my-select select3" id="background" >
+                <option value="1" style="background-color: rgb(243, 241, 210);"></option>
+                <option value="2" style="background-color: #F0EFE5;"></option>
+                <option value="3" style="background-color: #DCDCDC;" selected></option>
+                <option value="4" style="background-color: #E4CF95;"></option>
+                <option value="5" style="background-color: #C2B9A9;"></option>
             </select>
             <button>Select a Color Palette</button>
             <select id="palette">
@@ -79,11 +91,31 @@
                 <option value="4">4</option>
                 <option value="5">5</option>
             </select>
+            <label for="objectsInclude">Objects Include</label>
+            <label>Rectangle</label>
+            <input type="checkbox" id="includeRect" name="includeRect" checked>
+            <label>Triangle</label>
+            <input type="checkbox" id="includeTriangle" name="includeTriangle">
+            <label>Circle</label>
+            <input type="checkbox" id="includeCircle" name="includeCircle">
+            <label>Line</label>
+            <input type="checkbox" id="includeLine" name="includeLine">
+            <label>Stroke Circle</label>
+            <input type="checkbox" id="includeStrokeCircle" name="includeStrokeCircle">
+            <label>Half Circle</label>
+            <input type="checkbox" id="includeHalfCircle" name="includeHalfCircle">
             <button>Size Variation</button>
             <select id="sizeVariation">
                 <option value="1">Constant</option>
                 <option value="2">Variable</option>
                 <option value="3">Wide</option>
+            </select>
+            <label for="objectInCanvas">Keep Object in Canvas</label>
+            <input type="checkbox" id="objectInCanvas" name="objectInCanvas">
+            <select id="secondSelect" style="display: block;">
+                <option value="1">Small</option>
+                <option value="2">Medium</option>
+                <option value="3">Large</option>
             </select>
             <button>Select a Color Palette</button>
             <select id="palette1">
@@ -93,12 +125,12 @@
                 <option value="4">4</option>
             </select>
             <button>Select Background</button>
-            <select id="background1">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
+            <select class="my-select1 select3" id="background1">
+                <option value="1" style="background-color: rgb(243, 241, 210);"></option>
+                <option value="2" style="background-color: #F0EFE5;"></option>
+                <option value="3" style="background-color: #DCDCDC;" selected></option>
+                <option value="4" style="background-color: #E4CF95;"></option>
+                <option value="5" style="background-color: #C2B9A9;"></option>
             </select>
             <button>Select number of Objects</button>
             <select id="number">
@@ -106,7 +138,7 @@
                 <option value="2">2</option>
                 <option value="3">3</option>
                 <option value="4">4</option>
-                <option value="5">5</option>
+                <option value="5" selected>5</option>
                 <option value="6">6</option>
                 <option value="7">7</option>
                 <option value="8">8</option>
@@ -115,12 +147,12 @@
             </select>
             <button>Spacing</button>
             <select id="spacing">
-                <option value="1">Dense</option>
+                <option value="1">Sparse</option>
                 <option value="2">Medium</option>
-                <option value="3">Sparse</option>
+                <option value="3">Dense</option>
             </select>
             <button id="createArt">Create Art</button>
-          
+          <div id="canvasContainer"></div>
 
     </div>
     </div>

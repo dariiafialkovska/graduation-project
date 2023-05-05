@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cellular Automata</title>
+  <style>
+    canvas {
+      width: 50%;
+        height: 50%;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas5"></canvas>
+  <script>
+    // Set up the canvas
+const canvas = document.getElementById('canvas5');
+const ctx = canvas.getContext('2d');
+
+// Set up the grid
+const rows = 50;
+const cols = 50;
+const cellSize = 10;
+const grid = new Array(rows).fill().map(() => new Array(cols).fill(0));
+
+// Set up the initial state of the grid
+grid[25][25] = 1;
+
+// Define the rules for the cellular automaton
+function getNextState(x, y) {
+  let neighbors = 0;
+  for (let i = -1; i <= 1; i++) {
+    for (let j = -1; j <= 1; j++) {
+      if (i === 0 && j === 0) continue;
+      const row = (x + i + rows) % rows;
+      const col = (y + j + cols) % cols;
+      neighbors += grid[row][col];
+    }
+  }
+  if (grid[x][y] === 1 && (neighbors < 2 || neighbors > 3)) {
+    return 0;
+  } else if (grid[x][y] === 0 && neighbors === 3) {
+    return 1;
+  } else {
+    return grid[x][y];
+  }
+}
+
+// Update the grid for the next generation
+function updateGrid() {
+  const nextGrid = new Array(rows).fill().map(() => new Array(cols).fill(0));
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      nextGrid[i][j] = getNextState(i, j);
+    }
+  }
+  grid.splice(0, grid.length, ...nextGrid);
+}
+
+// Draw the grid
+function drawGrid() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  for (let i = 0; i < rows; i++) {
+    for (let j = 0; j < cols; j++) {
+      ctx.beginPath();
+      ctx.rect(j * cellSize, i * cellSize, cellSize, cellSize);
+      ctx.fillStyle = grid[i][j] ? 'black' : 'white';
+      ctx.fill();
+      ctx.stroke();
+    }
+  }
+}
+
+// Update the grid and redraw it every 100 milliseconds
+setInterval(() => {
+  updateGrid();
+  drawGrid();
+}, 100);
+  </script>
+</body>
+</html>

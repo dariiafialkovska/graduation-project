@@ -25,17 +25,30 @@
                         <a href="suprematism.html" class="nav-link">Suprematism</a>
                         <a href="destijl.html" class="nav-link">De Stijl</a>
                         <a href="op-art.html" class="nav-link">Op Art</a>
+
                       </div>
                 </div>
               <li><a href="#" class="nav-link">Educational Platform</a></li>
             </ul>
         </nav>
+
+
         <canvas id="canvas4"></canvas>
         <div id="controls">
-            <button id="randomizeArtButton">Randomize Art</button>
+            <label for="spreadAngleRect">Spread For Rectangle with Angle:</label>
+            <input id="spreadAngleRect" type="range" min="1" max="50" step="1" value="1">
+            <label for="spreadCircle">Spread For Circle:</label>
+            <input id="spreadCircle" type="range" min="1" max="50" step="2" value="1">
+            <label for="spreadRect">Spread For Rectangle:</label>
+            <input id="spreadRect" type="range" min="1" max="50" step="1" value="1">
+            <label for="checkered">checkered:</label>
+            <input id="checkered" type="range" min="4" max="20" step="1" value="1">
+            <label for="scale">Scale:</label>
+            <input id="scale" type="range" min="1" max="15" step="1" value="1">
+            <button id="randomizeArt">Randomize</button>
             <button id="clearCanvas">Clear</button>
-            <button id="previous">Previous</button>
-            <button id="next">Next</button>
+            <button id="undoButton">Undo</button>
+            <button id="redoButton">Redo</button>
             <label for="format">Save As</label>
             <select id="format">
                 <option value="png">PNG</option>
@@ -45,8 +58,7 @@
             <button id="saveCanvas">Save Art</button>
     
     </div>
-    
     </div>
 </body>
-<script src="destijl.js"></script>
+<script src="op-art.js"></script>
 </html>

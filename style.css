@@ -133,8 +133,6 @@ ul{
     left:0px;
     top: 30px;
     width:250px;
-    background: rgba(17, 8, 54, 0.3);
-
 }
 #controls1{
     position:absolute;
@@ -142,7 +140,6 @@ ul{
     right:0px;
     top: 70px;
     width:250px;
-    background: rgba(17, 8, 54, 0.3);
 }
 
 button{
@@ -191,4 +188,30 @@ label,input{
     transform: translate(-50%, -50%);
   }
   
-  
+  /* Path Suprematism*/
+
+  .my-select{
+    width: 100px;
+    height: 30px;
+  }
+
+  .select1{
+    background-color:rgb(243, 241, 210);
+  }
+  .select2{
+    background-color:#F0EFE5;
+  }
+  .select3{
+    background-color:#DCDCDC;
+  }
+  .select4{
+    background-color:#E4CF95;
+  }
+  .select5{
+    background-color:#C2B9A9;
+  }
+
+  .my-select1{
+    width: 100px;
+    height: 30px;
+  }
