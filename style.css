@@ -127,6 +127,13 @@ ul{
     top: 20%;
 }
 
+#canvas6{
+    background: rgb(248, 248, 245);
+    position: absolute;
+    left: 20%;
+    top: 20%;
+}
+
 
 #controls{
     position:relative;

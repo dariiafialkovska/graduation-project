@@ -1,81 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Cellular Automata</title>
-  <style>
-    canvas {
-      width: 50%;
-        height: 50%;
-      border: 1px solid black;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,
+    inital-scale=1.0">
+    <title>Generative Art</title>
+    <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-  <canvas id="canvas5"></canvas>
-  <script>
-    // Set up the canvas
-const canvas = document.getElementById('canvas5');
-const ctx = canvas.getContext('2d');
+    
+    <!--Navbar-->
+    <div class="hero">
+        <nav>
+            <h1>Generative Art Project</h1>
+            <ul>
+              <li><a href="index.html" class="home-page">Home Page</a></li>
+                    <div class="dropdown">
+                    <li class="dropbtn">Interactive Platform</li>
+                    <div class="dropdown-content">
+                        <a href="fractal-art.html" class="nav-link">Fractal Art</a>
+                        <a href="random_cubes.html" class="nav-link">Random Cubes</a>
+                        <a href="suprematism.html" class="nav-link">Suprematism</a>
+                        <a href="destijl.html" class="nav-link">De Stijl</a>
+                        <a href="op-art.html" class="nav-link">Op Art</a>
 
-// Set up the grid
-const rows = 50;
-const cols = 50;
-const cellSize = 10;
-const grid = new Array(rows).fill().map(() => new Array(cols).fill(0));
+                      </div>
+                </div>
+              <li><a href="#" class="nav-link">Educational Platform</a></li>
+            </ul>
+        </nav>
 
-// Set up the initial state of the grid
-grid[25][25] = 1;
 
-// Define the rules for the cellular automaton
-function getNextState(x, y) {
-  let neighbors = 0;
-  for (let i = -1; i <= 1; i++) {
-    for (let j = -1; j <= 1; j++) {
-      if (i === 0 && j === 0) continue;
-      const row = (x + i + rows) % rows;
-      const col = (y + j + cols) % cols;
-      neighbors += grid[row][col];
-    }
-  }
-  if (grid[x][y] === 1 && (neighbors < 2 || neighbors > 3)) {
-    return 0;
-  } else if (grid[x][y] === 0 && neighbors === 3) {
-    return 1;
-  } else {
-    return grid[x][y];
-  }
-}
+        <canvas id="canvas6"></canvas>
+        <div id="controls">
+            <label for="noOfCells">Number of Cells</label>
+            <input id="noOfCells" type="range" min="1" max="100" step="1" value="1" class="range-slider">
+            <input type="text" id="noOfRuleValue" name="noOfRuleValue" value="Enter a Ruleset from 1 to 256" style="width: 300px;">
+            <button id="generateArt">Generate Art</button>
+            <button id="randomRuleset">Random Ruleset</button>
+            <button id="randomDuoColor">Random Duo Color</button>
+            <button id="randomColorRuleset">Random Color Ruleset</button>
+            <select id="ruleSet">
+              <option value="30">Rule 30</option>
+              <option value="54">Rule 54</option>
+              <option value="60">Rule 60</option>
+              <option value="62">Rule 62</option>
+              <option value="90">Rule 90</option>
+              <option value="94">Rule 94</option>
+              <option value="102">Rule 102</option>
+              <option value="110">Rule 110</option>
+              <option value="122">Rule 122</option>
+              <option value="126">Rule 126</option>
+              <option value="150">Rule 150</option>
+              <option value="158">Rule 158</option>
+              <option value="182">Rule 182</option>
+              <option value="184">Rule 184</option>
+              <option value="188">Rule 188</option>
+              <option value="190">Rule 190</option>
+              <option value="220">Rule 220</option>
+              <option value="222">Rule 222</option>
+              <option value="250">Rule 250</option>
 
-// Update the grid for the next generation
-function updateGrid() {
-  const nextGrid = new Array(rows).fill().map(() => new Array(cols).fill(0));
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      nextGrid[i][j] = getNextState(i, j);
-    }
-  }
-  grid.splice(0, grid.length, ...nextGrid);
-}
+            </select>
+            <button id="randomizeArt">Randomize</button>
+            <label>Rectangle</label>
+            <input type="checkbox" id="rectangle" name="rectangle" value="rectangle" checked>
+            <label>Circle</label>
+            <input type="checkbox" id="circle" name="circle" value="circle">
+            <label>Triangle</label>
+            <input type="checkbox" id="triangle" name="triangle" value="triangle">
+            <label>Hexagon</label>
+            <input type="checkbox" id="hexagon" name="hexagon" value="hexagon">
 
-// Draw the grid
-function drawGrid() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  for (let i = 0; i < rows; i++) {
-    for (let j = 0; j < cols; j++) {
-      ctx.beginPath();
-      ctx.rect(j * cellSize, i * cellSize, cellSize, cellSize);
-      ctx.fillStyle = grid[i][j] ? 'black' : 'white';
-      ctx.fill();
-      ctx.stroke();
-    }
-  }
-}
-
-// Update the grid and redraw it every 100 milliseconds
-setInterval(() => {
-  updateGrid();
-  drawGrid();
-}, 100);
-  </script>
+            <button id="clearCanvas">Clear</button>
+            <button id="undoButton">Undo</button>
+            <button id="redoButton">Redo</button>
+            <label for="format">Save As</label>
+            <select id="format">
+                <option value="png">PNG</option>
+                <option value="jpeg">JPEG</option>
+                <option value="svg">SVG</option>
+            </select>
+            <button id="saveCanvas">Save Art</button>
+    
+    </div>
+    </div>
 </body>
+<script src="automata.js"></script>
 </html>
