@@ -117,6 +117,7 @@ ul{
     position: absolute;
     left: 20%;
     top: 20%;
+    box-shadow: inset 0 0 1px 0 rgba(0, 0, 0, 0.2);
 }
 
 #canvas4{
@@ -142,11 +143,57 @@ ul{
     width:250px;
 }
 
+input{
+  display: block;
+  background-color: #1d2026;
+  color: whitesmoke;
+  text-decoration-color: whitesmoke;
+}
+
+select{
+  display: block;
+  background-color: #1d2026;
+  color: whitesmoke;
+}
+
+label{
+    display: block;
+    margin-bottom: 10px;
+    background-color: #1d2026;
+    color: whitesmoke;
+}
+
+.button-container{
+  display: flex;
+  justify-content: center;
+}
 button{
+    border-radius: 15px;
+    display: block;
+    text-decoration: none;
+    background-color: #1d2026;
+    color:whitesmoke;
+    font-size: 16px;
     padding: 10px 40px;
     width: 225px;
     font-size:15px;
 }
+
+input.range-slider::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, white,black);
+}
+
+input.range-slider::-moz-range-track {
+  background: linear-gradient(to right,white,black);
+}
+
+
+
+button:active{
+    background-color:rgba(255, 192, 203, 0.842);
+    color: #1d2026;
+}
+
 label,input{
     color: white;
     font-size: 15px;

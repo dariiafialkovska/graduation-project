@@ -11,7 +11,17 @@ window.addEventListener('load',function(){
     canvas.style.top='50%';
     canvas.style.transform='translate(-50%,-50%)';
     
-    
+    ctx.filter='blur(0.2px)'; //Gaussian blur
+    //ctx.filter='brightness(1.5)'; //adjust brightness
+    //ctx.filter='contrast(1.5)'; //adjust contrast
+    //ctx.filter='grayscale(1)'; //grayscale
+    //ctx.filter='hue-rotate(90deg)'; //hue-rotate
+    //ctx.filter='invert(1)'; //invert
+    //ctx.filter='opacity(0.5)'; //opacity
+    //ctx.filter='saturate(2)'; //saturate
+    //ctx.filter='sepia(0.1)'; //sepia
+    //ctx.filter='drop-shadow 2px 2px 2px blue)'; //drop-shadow
+
     let spacing=1;
     let densityProbability=0.6;
     let mediumProbability=0.8;

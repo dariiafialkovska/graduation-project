@@ -178,7 +178,8 @@ window.addEventListener('load', function() {
             ctx.fill();
             ctx.stroke();
         }
-
+        ctx.lineWidth = 13;
+        ctx.strokeRect(0, 0, canvas.width, canvas.height);
     }
 
 });

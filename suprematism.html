@@ -37,13 +37,13 @@
         <div id="controls">
             <button id="#">Canvas Size</button>
             <label for="canvas-size-checkbox-equal">Adjust to Screen Equal Sized</label>
-            <input type="checkbox" id="canvas-size-checkbox-equal" name="canvas-size-checkbox-equal">
+            <input type="checkbox" id="canvas-size-checkbox-equal" name="canvas-size-checkbox-equal" style="color: white;">
             <label for="canvas-size-checkbox-horizontal">Horizontal</label>
             <input type="checkbox" id="canvas-size-checkbox-horizontal" name="canvas-size-checkbox-horizontal">
             <label for="canvas-size-checkbox-horizontal">Screen Vertical</label>
             <input type="checkbox" id="canvas-size-checkbox-vertical" name="canvas-size-checkbox-vertical">
-            <input type="text" id="canvas-size-height" name="canvas-size-height" value="Height" style="color: black;">
-            <input type="text" id="canvas-size-width" name="canvas-size-width" value="Width" style="color: black;">
+            <input type="text" id="canvas-size-height" name="canvas-size-height" value="Height" >
+            <input type="text" id="canvas-size-width" name="canvas-size-width" value="Width" >
             <button id="canvas_size">Adjust</button>
             <button id="selectBackground">Select a Background</button>
             <select class="my-select select3" id="background" >
@@ -70,17 +70,19 @@
             <button id="addHalfCircle">Add Half Circle</button>
             <button id="automaticAdd">Add Automaticly</button>
             <button id="stopAdd">Stop</button>
-            <button id="clearCanvas">Clear</button>
-            <button id="undoButton">Undo</button>
-            <button id="redoButton">Redo</button>
-            <label for="format">Save As</label>
-            <select id="format">
-                <option value="png">PNG</option>
-                <option value="jpeg">JPEG</option>
-                <option value="svg">SVG</option>
-            </select>
-            <button id="saveCanvas">Save Art</button>
     
+    </div>
+    <div class="button-container">
+        <button id="clearCanvas">Clear</button>
+        <button id="undoButton">Undo</button>
+        <button id="redoButton">Redo</button>
+        <label for="format" style="margin:15px;">Save As</label>
+        <select id="format">
+            <option value="png">PNG</option>
+            <option value="jpeg">JPEG</option>
+            <option value="svg">SVG</option>
+        </select>
+        <button id="saveCanvas">Save Art</button>
     </div>
     <div id="controls1">
             <button>Number of Canvases</button>

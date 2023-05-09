@@ -372,7 +372,7 @@ function middleAngledRectangle(){
     let y1 = 0;
     let y2 = 180;
     let y3 = 180;
-    
+    //y2=
     
     let y1outside = 357;
     //left down side

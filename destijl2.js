@@ -18,6 +18,7 @@ window.addEventListener('load', function() {
     
 
 
+
     //drawing background
     ctx.strokeStyle = "black";
     ctx.lineWidth = 10;
