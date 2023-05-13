@@ -134,6 +134,15 @@ ul{
     top: 20%;
 }
 
+#patternCanvas{
+    background: rgb(248, 248, 245);
+    position: absolute;
+    left: 32%;
+    top: 100%;
+
+}
+
+
 
 #controls{
     position:relative;

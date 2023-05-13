@@ -9,6 +9,9 @@ canvas.style.left='50%';
 canvas.style.top='50%';
 canvas.style.transform='translate(-50%,-50%)';
 
+let color1 = '#000000';
+let color2 = '#ffffff';
+
 //should be the 
 let rect_size=Math.sqrt(canvas.width/2*canvas.width/2+canvas.height/2*canvas.height/2);
 const rect_width = rect_size;
@@ -18,12 +21,12 @@ ctx.save();
 
 function saveState(){
     let state = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    undoStack.push(state);
+    previousStack.push(state);
     console.log('State saved:', state);
 }
 
-let undoStack=[];
-let redoStack=[];
+let previousStack=[];
+let nextStack=[];
 let spreadAngleRect=2;
 let spreadRect=2;
 let spreadCircle=2;
@@ -40,12 +43,16 @@ const slider_checkered=this.document.getElementById('checkered');
 const label_checkered=this.document.querySelector('[for="checkered"]');
 const slider_scale=this.document.getElementById('scale');
 const label_scale=this.document.querySelector('[for="scale"]');
-
+const slider_color1=this.document.getElementById('colorOne');
+const label_color1=this.document.querySelector('[for="colorOne"]');
+const slider_color2=this.document.getElementById('colorTwo');
+const label_color2=this.document.querySelector('[for="colorTwo"]');
+const randomDuoColorButton=this.document.getElementById('randomDuoColor');
 
 const clearButton = document.getElementById('clearCanvas');
-const undoButton = document.getElementById('undo');
-const redoButton = document.getElementById('redo');
-const saveButton = document.getElementById('save');
+const previousButton = document.getElementById('previous');
+const nextButton = document.getElementById('next');
+const saveButton = document.getElementById('saveCanvas');
 
 slider_spreadAngleRect.addEventListener('change',function(e){
     ctx.restore();
@@ -53,7 +60,7 @@ slider_spreadAngleRect.addEventListener('change',function(e){
     spreadAngleRect=e.target.value;
     updateSliders();
     middleAngledRectangle();
-
+    saveState();
 });
 
 slider_spreadCircle.addEventListener('change',function(e){
@@ -62,6 +69,7 @@ slider_spreadCircle.addEventListener('change',function(e){
     spreadCircle=e.target.value;
     updateSliders();
     middleCircle();
+    saveState();
 
 });
 
@@ -71,6 +79,7 @@ slider_spreadRect.addEventListener('change',function(e){
     spreadRect=e.target.value;
     updateSliders();
     middleRectangle();
+    saveState();
 });
 
 slider_checkered.addEventListener('change',function(e){
@@ -79,6 +88,7 @@ slider_checkered.addEventListener('change',function(e){
     checkeredRectSize=e.target.value;
     updateSliders();
     checkeredRectangle();
+    saveState();
 });
 
 slider_scale.addEventListener('change',function(e){
@@ -87,14 +97,44 @@ slider_scale.addEventListener('change',function(e){
     scale=e.target.value;
     updateSliders();
     checkeredRectangle();
+    saveState();
 });
 
 
 clearButton.addEventListener('click',function(){
     ctx.restore();
     ctx.clearRect(0,0,canvas.width,canvas.height);
+    saveState();
 });
 
+previousButton.addEventListener('click',function(){
+    if(previousStack.length>0){
+        nextStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+        let state = previousStack.pop();
+        ctx.putImageData(state, 0, 0);
+    }  
+});
+
+nextButton.addEventListener('click',function(){
+    if(nextStack.length>0){
+        previousStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+        let state = nextStack.pop();
+        ctx.putImageData(state, 0, 0);
+    }
+});
+
+saveButton.addEventListener('click',function(){
+    const format=document.querySelector('#format').value;
+    const dataURL=canvas.toDataURL(format);
+    const link=document.createElement('a');
+    link.download=`my-image.${format}`;
+    link.href=dataURL;
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+});
 function middleRectangle(){
     ctx.save();
 
@@ -123,15 +163,15 @@ function middleRectangle(){
         
         if(numberofSeparations%2==0){
         if(i%2==0){
-            ctx.fillStyle = "white";
+            ctx.fillStyle = color1;
         }else{
-            ctx.fillStyle = "black";
+            ctx.fillStyle = color2;
         }}
         else{
             if(i%2==0){
-                ctx.fillStyle = "black";
+                ctx.fillStyle = color2;
             }else{
-                ctx.fillStyle = "white";
+                ctx.fillStyle = color1;
             }
         }
         // fill the triangle
@@ -154,9 +194,9 @@ function middleRectangle(){
         ctx.lineTo(x2, y2);
         ctx.lineTo(x3, y3);
             if(i%2==0){
-                ctx.fillStyle = "white";
+                ctx.fillStyle = color1;
             }else{
-                ctx.fillStyle = "black";
+                ctx.fillStyle = color2;
             }
 
         // fill the triangle
@@ -180,15 +220,15 @@ function middleRectangle(){
         if(numberofSeparations%2==0){
             
             if(i%2==0){
-                ctx.fillStyle = "white";
+                ctx.fillStyle = color1;
             }else{
-                ctx.fillStyle = "black";
+                ctx.fillStyle = color2;
             }}
             else{
                 if(i%2==0){
-                    ctx.fillStyle = "black";
+                    ctx.fillStyle = color2;
                 }else{
-                    ctx.fillStyle = "white";
+                    ctx.fillStyle = color1;
                 }
             }
         // fill the triangle
@@ -210,9 +250,9 @@ function middleRectangle(){
         ctx.lineTo(x2, y2);
         ctx.lineTo(x3, y3);
         if(i%2==0){
-            ctx.fillStyle = "white";
+            ctx.fillStyle = color1;
         }else{
-            ctx.fillStyle = "black";
+            ctx.fillStyle = color2;
         }
         // fill the triangle
         ctx.fill();
@@ -245,15 +285,15 @@ function middleRectangle(){
         
         if(numberofSeparations%2==0){
         if(i%2==0){
-            ctx.fillStyle = "black";
+            ctx.fillStyle = color2;
         }else{
-            ctx.fillStyle = "white";
+            ctx.fillStyle = color1;
         }}
         else{
             if(i%2==0){
-                ctx.fillStyle = "white";
+                ctx.fillStyle = color1;
             }else{
-                ctx.fillStyle = "black";
+                ctx.fillStyle = color2;
             }
         }
         // fill the triangle
@@ -276,9 +316,9 @@ function middleRectangle(){
         ctx.lineTo(x2, y2);
         ctx.lineTo(x3, y3);
             if(i%2==0){
-                ctx.fillStyle = "black";
+                ctx.fillStyle = color2;
             }else{
-                ctx.fillStyle = "white";
+                ctx.fillStyle = color1;
             }
 
         // fill the triangle
@@ -303,15 +343,15 @@ function middleRectangle(){
         if(numberofSeparations%2==0){
             
             if(i%2==0){
-                ctx.fillStyle = "black";
+                ctx.fillStyle = color2;
             }else{
-                ctx.fillStyle = "white";
+                ctx.fillStyle = color1;
             }}
             else{
                 if(i%2==0){
-                    ctx.fillStyle = "white";
+                    ctx.fillStyle = color1;
                 }else{
-                    ctx.fillStyle = "black";
+                    ctx.fillStyle = color2;
                 }
             }
         // fill the triangle
@@ -333,9 +373,9 @@ function middleRectangle(){
         ctx.lineTo(x2, y2);
         ctx.lineTo(x3, y3);
         if(i%2==0){
-            ctx.fillStyle = "black";
+            ctx.fillStyle = color2;
         }else{
-            ctx.fillStyle = "white";
+            ctx.fillStyle = color1;
         }
         // fill the triangle
         ctx.fill();
@@ -352,7 +392,7 @@ function middleAngledRectangle(){
     
     //ctx.fillRect(-rect_width/2, -rect_height/2, rect_width, rect_height);
     
-    ctx.strokeStyle = "black";
+    ctx.strokeStyle = color2;
     ctx.moveTo(0,0);
     ctx.lineTo(150,150);
     ctx.stroke();
@@ -390,15 +430,15 @@ function middleAngledRectangle(){
         
         if(numberofSeparations%2==0){
         if(i%2==0){
-            ctx.fillStyle = "white";
+            ctx.fillStyle = color1;
         }else{
-            ctx.fillStyle = "black";
+            ctx.fillStyle = color2;
         }}
         else{
             if(i%2==0){
-                ctx.fillStyle = "black";
+                ctx.fillStyle = color2;
             }else{
-                ctx.fillStyle = "white";
+                ctx.fillStyle = color1;
             }
         }
         // fill the triangle
@@ -412,15 +452,15 @@ function middleAngledRectangle(){
         if(numberofSeparations%2==0){
 
         if(i%2==0){
-            ctx.fillStyle = "black";
+            ctx.fillStyle = color2;
         }else{
-            ctx.fillStyle = "white";
+            ctx.fillStyle = color1;
         }}
         else{
             if(i%2==0){
-                ctx.fillStyle = "white";
+                ctx.fillStyle = color1;
             }else{
-                ctx.fillStyle = "black";
+                ctx.fillStyle = color2;
             }
         }
 
@@ -446,9 +486,9 @@ function middleAngledRectangle(){
         ctx.lineTo(x3, y3);
         
         if(i%2==0){
-            ctx.fillStyle = "white";
+            ctx.fillStyle = color1;
         }else{
-            ctx.fillStyle = "black";
+            ctx.fillStyle = color2;
         }
         // fill the triangle
         ctx.fill();
@@ -460,9 +500,9 @@ function middleAngledRectangle(){
         ctx.lineTo(x3, y3);
     
         if(i%2==0){
-            ctx.fillStyle = "black";
+            ctx.fillStyle = color2;
         }else{
-            ctx.fillStyle = "white";
+            ctx.fillStyle = color1;
         }
         ctx.fill();
     }
@@ -485,15 +525,15 @@ function middleAngledRectangle(){
         ctx.lineTo(x3, y3);
         if(numberofSeparations%2==0){
         if(i%2==0){
-            ctx.fillStyle = "white";
+            ctx.fillStyle = color1;
         }else{
-            ctx.fillStyle = "black";
+            ctx.fillStyle = color2;
         }}
         else{
             if(i%2==0){
-                ctx.fillStyle = "black";
+                ctx.fillStyle = color2;
             }else{
-                ctx.fillStyle = "white";
+                ctx.fillStyle = color1;
             }
         }
 
@@ -508,15 +548,15 @@ function middleAngledRectangle(){
         if(numberofSeparations%2==0){
 
         if(i%2==0){
-            ctx.fillStyle = "black";
+            ctx.fillStyle = color2;
         }else{
-            ctx.fillStyle = "white";
+            ctx.fillStyle = color1;
         }}
         else{
             if(i%2==0){
-                ctx.fillStyle = "white";
+                ctx.fillStyle = color1;
             }else{
-                ctx.fillStyle = "black";
+                ctx.fillStyle = color2;
             }
         }
         ctx.fill();
@@ -539,9 +579,9 @@ function middleAngledRectangle(){
         ctx.lineTo(x3, y3);
     
         if(i%2==0){
-            ctx.fillStyle = "white";
+            ctx.fillStyle = color1;
         }else{
-            ctx.fillStyle = "black";
+            ctx.fillStyle = color2;
         }
         // fill the triangle
         ctx.fill();
@@ -552,9 +592,9 @@ function middleAngledRectangle(){
         ctx.lineTo(x3, y3);
     
         if(i%2==0){
-            ctx.fillStyle = "black";
+            ctx.fillStyle = color2;
         }else{
-            ctx.fillStyle = "white";
+            ctx.fillStyle = color1;
         }
         ctx.fill();
     }
@@ -614,20 +654,20 @@ function middleCircle(){
 
 
         if(i%2==0){
-            ctx.fillStyle = "black";
+            ctx.fillStyle = color2;
         }
         else{
-            ctx.fillStyle = "white";
+            ctx.fillStyle = color1;
         }
 
         ctx.closePath();
         ctx.fill();
 
         if(i%2==0){
-            ctx.fillStyle = "white";
+            ctx.fillStyle = color1;
         }
         else{
-            ctx.fillStyle = "black";
+            ctx.fillStyle = color2;
         }
 
 
@@ -657,9 +697,9 @@ function checkeredRectangle(){
       for (let j = 0; j < canvas.width; j += rectWidth) {
         // Alternate the fill color of each rectangle
         if ((i1 + j1) % 2 == 0) {
-          ctx.fillStyle = 'white';
+          ctx.fillStyle = color1;
         } else {
-          ctx.fillStyle = 'black';
+          ctx.fillStyle = color2;
         }
         // Draw the rectangle
         ctx.fillRect(j, i, rectWidth, rectHeight);
@@ -706,9 +746,9 @@ function checkeredRectangle(){
         for (let j = insideX1; j < insideX2; j += rectWidth/2) {
           // Alternate the fill color of each rectangle
           if ((i1 + j1) % (2) === 0) {
-            ctx.fillStyle = 'black';
+            ctx.fillStyle = color2;
           } else {
-            ctx.fillStyle = 'white';
+            ctx.fillStyle = color1;
           }
           // Draw the rectangle
           ctx.fillRect(j, i, rectWidth/2, rectHeight/2);
@@ -724,6 +764,11 @@ function checkeredRectangle(){
 
 
 function updateSliders(){
+    slider_color1.value=color1;
+    slider_color2.value=color2;
+    label_color1.innerText='Color 1: '+color1;  
+    label_color2.innerText='Color 2: '+color2;
+
     slider_spreadAngleRect.value=spreadAngleRect;
     label_spreadAngleRect.innerText='Spread: '+Number(spreadAngleRect);
 
@@ -740,5 +785,104 @@ function updateSliders(){
     label_scale.innerText='Scale: '+Number(scale);
 }
 
+    slider_color1.addEventListener('change',function(){
+        color1=slider_color1.value;
+        console.log(color1);
+    });
+
+    slider_color2.addEventListener('change',function(){
+        color2=slider_color2.value;
+        console.log(color2);
+    });
+
+
+
+
+    randomDuoColorButton.addEventListener('click',function(){
+        let r1=Math.floor(Math.random()*255);
+        let g1=Math.floor(Math.random()*255);
+        let b1=Math.floor(Math.random()*255);
+        let r2=Math.floor(Math.random()*255);
+        let g2=Math.floor(Math.random()*255);
+        let b2=Math.floor(Math.random()*255);
+        color1='rgb('+r1+','+g1+','+b1+')';
+        color2='rgb('+r2+','+g2+','+b2+')';
+        console.log(color1);
+        console.log(color2);
+    });
+
+    const widthPatternSelect=document.querySelector('#widthPattern');   
+    const heightPatternSelect=document.querySelector('#heightPattern');
+   
+    const deletePatternButton=document.getElementById('deletePattern');
+    const savePatternButton=document.getElementById('savePattern');
+    const patternContainer=document.getElementById('pattern-container');
+    const patternBtn=document.getElementById('patternBtn');
+    let patternCanvas=document.getElementById('patternCanvas');
+    const format1=document.querySelector('#format1').value;
+    const formatstyle=document.getElementById('format1');
+    patternBtn.addEventListener('click',function(){
+        patternCanvas=createPattern(patternCanvas);
+        patternContainer.appendChild(patternCanvas);
+    });
+    
+    function createPattern(patternCanvas){
+        let widthOfPattern=widthPatternSelect.value;
+        let heightOfPattern=heightPatternSelect.value;
+        deletePatternButton.style.display='block';       
+        savePatternButton.style.display='block';
+        formatstyle.style.display='block';
+        
+        const patternCtx = patternCanvas.getContext('2d');
+        let eachPatternWidth;
+        let eachPatternHeight;
+        if(widthOfPattern>heightOfPattern){//if the pattern is wider than it is tall, then let height stay the same width will be adjusted
+            patternCanvas.height=canvas.height;
+            eachPatternHeight=canvas.height/heightOfPattern;
+            eachPatternWidth=eachPatternHeight;
+            patternCanvas.width=eachPatternWidth*widthOfPattern;
+
+
+        }else if(widthOfPattern<heightOfPattern){//if the pattern is taller than it is wide, then let width stay the same height will be adjusted
+            patternCanvas.width=canvas.width;
+            eachPatternWidth=canvas.width/widthOfPattern;
+            eachPatternHeight=eachPatternWidth;
+            patternCanvas.height=eachPatternHeight*heightOfPattern;
+        }else if(widthOfPattern==heightOfPattern){//if the pattern is a square, then let width and height stay the same
+            patternCanvas.width=canvas.width;
+            patternCanvas.height=canvas.height;
+            eachPatternWidth=canvas.width/widthOfPattern;
+            eachPatternHeight=eachPatternWidth;
+        }
+        for(let i=0; i<widthOfPattern; i++){
+            for(let j=0; j<heightOfPattern; j++){
+                patternCtx.drawImage(canvas, 0,0,canvas.width,canvas.height,eachPatternWidth*i,eachPatternHeight*j,eachPatternWidth,eachPatternHeight);
+            }
+        }
+        patternCanvas.style.display='block';
+        return patternCanvas;
+        
+    }
+    
+
+    deletePatternButton.addEventListener('click',function(){
+        patternContainer.removeChild(patternContainer.lastElementChild);
+        deletePatternButton.style.display='none';
+        savePatternButton.style.display='none';
+        formatstyle.style.display='none';
+
+    });
+
+    savePatternButton.addEventListener('click',function(){
+        const dataURL=patternCanvas.toDataURL(format1);
+        const link=document.createElement('a');
+        link.download=`my-pattern.${format1}`;
+        link.href=dataURL;
+    
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    
+    });
 
 });

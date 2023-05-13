@@ -57,6 +57,8 @@ window.addEventListener('load',function(){
     const addHalfCircleButton=this.document.getElementById('addHalfCircle');
     const automaticButton=this.document.getElementById('automaticAdd');
     const stopButton= this.document.getElementById('stopAdd');
+    
+    const applyEffectButton=this.document.getElementById('applyEffect');
     const clearButton=this.document.getElementById('clearCanvas');
     const saveButton=this.document.getElementById('saveCanvas');
     
@@ -453,18 +455,24 @@ window.addEventListener('load',function(){
         if(spacing==1){
             p1x=Math.random()*canvas.width;
             p1y=Math.random()*canvas.height;
+            p2x=Math.random()*canvas.width;
+            p2y=Math.random()*canvas.height;
         }else if(spacing==2){
             p1x=Math.random()*(canvas.width*mediumProbability-canvas.width*(1-mediumProbability))+canvas.width*(1-mediumProbability); //so it will be in %20-%80
             p1y=Math.random()*(canvas.height*mediumProbability-canvas.height*(1-mediumProbability))+canvas.height*(1-mediumProbability);
+            p2x=Math.random()*(canvas.width*mediumProbability-canvas.width*(1-mediumProbability))+canvas.width*(1-mediumProbability); //so it will be in %20-%80
+            p2y=Math.random()*(canvas.height*mediumProbability-canvas.height*(1-mediumProbability))+canvas.height*(1-mediumProbability);
         }else if(spacing==3){
             p1y=Math.random()*(canvas.height*densityProbability-canvas.height*(1-densityProbability))+canvas.height*(1-densityProbability);
             p1x=Math.random()*(canvas.width*densityProbability-canvas.width*(1-densityProbability))+canvas.width*(1-densityProbability);
+            p2y=Math.random()*(canvas.height*densityProbability-canvas.height*(1-densityProbability))+canvas.height*(1-densityProbability);
+            p2x=Math.random()*(canvas.width*densityProbability-canvas.width*(1-densityProbability))+canvas.width*(1-densityProbability);
         }
         size=Math.floor(Math.random()*(max_Size-min_Size+1))+min_Size;
-        p2x=Math.random()*p1x+100;
-        p2y=Math.random()*p2x+100;
-        p3x=Math.random()*70+Math.abs(p1x-p2x);
-        p3y=Math.random()*70+Math.abs(p1y-p2y);
+        //p2x=Math.random()*size;
+        //p2y=Math.random()*size;
+        p3x=Math.random()*size+Math.abs(p1x-p2x);
+        p3y=Math.random()*size+Math.abs(p1y-p2y);
 
         if(objectInCanvasBool){
             if(p1x>canvas.width){
@@ -681,6 +689,86 @@ window.addEventListener('load',function(){
         automaticButton.disabled=false;
         stopButton.disabled=true;
     });
+
+
+    applyEffectButton.addEventListener('click',function(){
+        console.log('apply effect button clicked');
+        saveState();
+        let effect=document.querySelector('#effect').value;
+        let imageData=ctx.getImageData(0,0,canvas.width,canvas.height);
+        let data=imageData.data;
+        if(effect=='1'){//grain
+            console.log('grain effect');
+            const grainAmount=50;
+            const grainSize=1;
+            
+            for (let y = 0; y < canvas.height; y += grainSize) {
+                for (let x = 0; x < canvas.width; x += grainSize) {
+                const grain = Math.random() * 2 - 1;
+
+                for (let j = 0; j < grainSize; j++) {
+                    for (let i = 0; i < grainSize; i++) {
+                    const pixelIndex = ((y + j) * canvas.width + (x + i)) * 4;
+
+                    data[pixelIndex] += grainAmount * grain;
+                    data[pixelIndex + 1] += grainAmount * grain;
+                    data[pixelIndex + 2] += grainAmount * grain;
+                    }
+                }
+                }
+            }
+
+        ctx.clearRect(0,0,canvas.width,canvas.height);
+        ctx.putImageData(imageData,0,0);
+        }else if(effect=='2'){//blur
+            console.log('blur effect');
+            const blurAmount=1;
+            ctx.filter=`blur(${blurAmount}px)`;
+            ctx.drawImage(canvas,0,0);
+            ctx.filter='none';
+           
+    
+            
+        }else if(effect=='3'){//sharpen
+            console.log('sharpen effect');
+            const sharpenAmount=50;
+            ctx.filter=`blur(${sharpenAmount}px)`;
+            ctx.drawImage(canvas,0,0);
+            ctx.filter='none';
+
+        }else if(effect=='4'){//brightness
+
+            console.log('brightness effect');
+            const brightnessAmount=2;
+            ctx.filter=`brightness(${brightnessAmount})`;
+            ctx.drawImage(canvas,0,0);
+            ctx.filter='none';
+
+        }else if(effect=='5'){//contrast
+            console.log('contrast effect');
+            const contrastAmount=50;
+            ctx.filter=`contrast(${contrastAmount})`;
+            ctx.drawImage(canvas,0,0);
+            ctx.filter='none';
+            
+        }else if(effect=='6'){//hue-rotate
+            console.log('hue-rotate effect');
+            const hueAmount=50;
+            ctx.filter=`hue-rotate(${hueAmount}deg)`;
+            ctx.drawImage(canvas,0,0);
+            ctx.filter='none';
+            
+        }
+       
+    });
+
+
+
+
+
+
+
+
 
     //clear button
     clearButton.addEventListener('click',function(){

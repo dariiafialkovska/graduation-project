@@ -34,21 +34,27 @@
 
 
         <canvas id="canvas4"></canvas>
+        
         <div id="controls">
             <label for="spreadAngleRect">Spread For Rectangle with Angle:</label>
             <input id="spreadAngleRect" type="range" min="1" max="50" step="1" value="1" class="range-slider">
             <label for="spreadCircle">Spread For Circle:</label>
-            <input id="spreadCircle" type="range" min="1" max="50" step="2" value="1" class="range-slider">
+            <input id="spreadCircle" type="range" min="1" max="70" step="2" value="1" class="range-slider">
             <label for="spreadRect">Spread For Rectangle:</label>
-            <input id="spreadRect" type="range" min="1" max="50" step="1" value="1" class="range-slider">
+            <input id="spreadRect" type="range" min="1" max="70" step="1" value="1" class="range-slider">
             <label for="checkered">checkered:</label>
             <input id="checkered" type="range" min="4" max="20" step="1" value="1" class="range-slider">
             <label for="scale">Scale:</label>
             <input id="scale" type="range" min="1" max="15" step="1" value="1" class="range-slider">
+            <label for="colorOne">Color 1</label>
+            <input id="colorOne" type="color" min="0.2" max="0.8" step="0.05" value="0.4" class="range-slider">
+            <label for="colorTwo">Color 2</label>
+            <input id="colorTwo" type="color" min="0.2" max="0.8" step="0.05" value="0.4" class="range-slider">
+            <button id="randomDuoColor">Random Duo Color</button>
             <button id="randomizeArt">Randomize</button>
             <button id="clearCanvas">Clear</button>
-            <button id="undoButton">Undo</button>
-            <button id="redoButton">Redo</button>
+            <button id="previous">Previous</button>
+            <button id="next">Next</button>
             <label for="format">Save As</label>
             <select id="format">
                 <option value="png">PNG</option>
@@ -56,8 +62,41 @@
                 <option value="svg">SVG</option>
             </select>
             <button id="saveCanvas">Save Art</button>
-    
+            <label for="widthPattern">Width</label>
+            <select id="widthPattern">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option selected value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option  value="7">7</option>
+                <option value="8">8</option>
+            </select>
+            <label for="heightPattern">Height</label>
+            <select id="heightPattern">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option selected value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option  value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+            </select>
+            <button id="patternBtn" >Make Pattern</button>
+            <select id="format1" style="display: none;">
+                <option value="png">PNG</option>
+                <option value="jpeg">JPEG</option>
+                <option value="svg">SVG</option>
+            </select>
+            <button id="savePattern" style="display: none;">Save Pattern</button>
+            <button id="deletePattern" style="display: none; position: relative;">Delete Pattern</button>
+
     </div>
+            <div id="pattern-container">
+            <canvas id="patternCanvas" style="display: none;"></canvas>
+            </div>
     </div>
 </body>
 <script src="op-art.js"></script>

@@ -29,6 +29,9 @@ window.addEventListener('load',function(){
         250:[1,1,1,1,1,0,1,0],//interesting because it generates the Sierpinski triangle pattern, which is a fractal pattern that appears in many different areas of mathematics and science
     };
 
+    let objectIncludeArray = [1];
+    let objectNo=1;
+    let cellObjectTypeArray = [];
 
     
 
@@ -66,10 +69,30 @@ window.addEventListener('load',function(){
     const randomDuoColorButton=this.document.getElementById('randomDuoColor');
     const randomColorRulesetButton=this.document.getElementById('randomColorRuleset');
 
+    const includeRect=this.document.getElementById('rectangle');
+    const includeCircle=this.document.getElementById('circle');
+    const includeTriangle=this.document.getElementById('triangle');
+    const includeHexagon=this.document.getElementById('hexagon');
+
+
     const clearButton = document.getElementById('clearCanvas');
     const undoButton = document.getElementById('undo');
     const redoButton = document.getElementById('redo');
-    const saveButton = document.getElementById('save');
+    const saveButton = document.getElementById('saveCanvas');
+
+    saveButton.addEventListener('click', function() {
+        const format=document.querySelector('#format').value;
+        const dataURL=canvas.toDataURL(format);
+        const link=document.createElement('a');
+        link.download=`my-image.${format}`;
+        link.href=dataURL;
+
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    
+    });
+
 
     slider_noOfCells.addEventListener('change',function(e){
         ctx.restore();
@@ -78,8 +101,8 @@ window.addEventListener('load',function(){
         updateSliders();
         cellWidth = canvas.width/noOfCells;
         cellHeight = canvas.height/noOfCells;
-        console.log("cellHeight"+cellHeight);
-        console.log("cellWidth"+cellWidth);
+        //console.log("cellHeight"+cellHeight);
+        //console.log("cellWidth"+cellWidth);
         updateCanvas();
         //updateArray(cells);
         
@@ -93,12 +116,14 @@ window.addEventListener('load',function(){
 
 
     randomRulesetButton.addEventListener('click',function(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);//clears the canvas
         ruleSetNumber=Math.floor(Math.random()*255);
         ruleset=decomposeNumber(ruleSetNumber);
         updateCanvas();
     });
 
     randomDuoColorButton.addEventListener('click',function(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);//clears the canvas
         let r1=Math.floor(Math.random()*255);
         let g1=Math.floor(Math.random()*255);
         let b1=Math.floor(Math.random()*255);
@@ -117,6 +142,7 @@ window.addEventListener('load',function(){
 
     randomColorRulesetButton.addEventListener('click',function(){
         //initialize random color array which will represent the ruleset
+        ctx.clearRect(0,0,canvas.width,canvas.height);//clears the canvas
         randomColorRulesetArray = [];
         for(let i=0;i<8;i++){
             let r=Math.floor(Math.random()*255);
@@ -139,6 +165,53 @@ window.addEventListener('load',function(){
 
     });
 
+    includeRect.addEventListener('change',function(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);//clears the canvas
+        if(includeRect.checked){
+            objectIncludeArray.push(1);
+        }
+        else{
+            objectIncludeArray.pop(1);
+        }
+        //console.log(objectIncludeArray);
+        updateCanvas();
+    });
+
+    includeCircle.addEventListener('change',function(){
+        ctx.clearRect(0,0,canvas.width,canvas.height);//clears the canvas
+        if(includeCircle.checked){
+            objectIncludeArray.push(2);
+        }
+        else{
+            objectIncludeArray.pop(2);
+        }
+        //console.log(objectIncludeArray);
+        updateCanvas();
+    });
+
+    includeTriangle.addEventListener('change',function(){
+        if(includeTriangle.checked){
+            objectIncludeArray.push(3);
+        }
+        else{
+            objectIncludeArray.pop(3);
+        }   
+        //console.log(objectIncludeArray);
+        updateCanvas();
+    });
+
+    includeHexagon.addEventListener('change',function(){
+        if(includeHexagon.checked){
+            objectIncludeArray.push(4);
+        }
+        else{
+            objectIncludeArray.pop(4);
+        }
+        //console.log(objectIncludeArray);
+        updateCanvas();
+    });
+
+
     function updateCanvas(){//generates the new canvas
         //cells = randomArray(noOfCells); //creates a random array of 1s and 0s
         for(let i = 0; i < noOfCells; i++){
@@ -154,6 +227,19 @@ window.addEventListener('load',function(){
             //console.log("Before update");
             //console.log(cells);
             //firstly change the colors based on color ruleset
+
+            if(objectIncludeArray.length==1){
+                console.log("here i am");
+                objectNo=objectIncludeArray[0];
+                console.log("objectno is"+objectNo);
+            }else{
+                for(let i=0;i<noOfCells;i++){
+                    cellObjectTypeArray[i]=objectIncludeArray[Math.floor(Math.random()*objectIncludeArray.length)];
+                    //adjust random object to cell
+                }
+            }
+            console.log(cellObjectTypeArray);
+
             if(colorRulesetEnable){
                 cellsColor =updateColorArray(cells);
             }
@@ -186,20 +272,73 @@ window.addEventListener('load',function(){
     for(let i = 0; i < noOfCells; i++){
         if(colorRulesetEnable){
             ctx.fillStyle = cellsColor[i];
-            ctx.fillRect(i*cellWidth,y,cellWidth,cellHeight);
+            if(objectIncludeArray.length==1){
+                drawByType(objectIncludeArray[0],i*cellWidth,y,cellWidth,cellHeight);
+            }else{
+                drawByType(cellObjectTypeArray[i],i*cellWidth,y,cellWidth,cellHeight);
+            }
+            //ctx.fillRect(i*cellWidth,y,cellWidth,cellHeight);
         }else{
         if(cells[i] == 1){
             ctx.fillStyle = color1;
-          
-            ctx.fillRect(i*cellWidth,y,cellWidth,cellHeight);
+            if(objectIncludeArray.length==1){
+                drawByType(objectIncludeArray[0],i*cellWidth,y,cellWidth,cellHeight);
+            }else{
+                drawByType(cellObjectTypeArray[i],i*cellWidth,y,cellWidth,cellHeight);
+            }
+            //ctx.fillRect(i*cellWidth,y,cellWidth,cellHeight);
         }
         if(cells[i] == 0){
             ctx.fillStyle = color2;
-            ctx.fillRect(i*cellWidth,y,cellWidth,cellWidth);
+            if(objectIncludeArray.length==1){
+                drawByType(objectIncludeArray[0],i*cellWidth,y,cellWidth,cellHeight);
+            }else{
+                drawByType(cellObjectTypeArray[i],i*cellWidth,y,cellWidth,cellHeight);
+            }
+            //ctx.fillRect(i*cellWidth,y,cellWidth,cellWidth);
         }
         }
     }
 }
+
+    function drawByType(objectNum,x1,y1,width1,height1){
+
+            if(objectNum==1){
+                console.log("here");
+                ctx.fillRect(x1,y1,width1,height1);
+            }
+            else if(objectNum==2){
+                //console.log("AAAAAAAAAAAAAAAAAAAAAAa");
+                console.log(x1+width1/2+" "+y1+height1/2+" "+width1/2);
+                ctx.beginPath();
+                ctx.arc(x1+width1/2,y1+height1/2,width1/2,0,2*Math.PI);
+                ctx.fill();
+                ctx.closePath();
+            }
+            else if(objectNum==3){
+                ctx.beginPath();
+                ctx.moveTo(x1,y1);
+                ctx.lineTo(x1+width1,y1);
+                ctx.lineTo(x1+width1/2,y1+height1);
+                ctx.fill();
+                ctx.closePath();
+            }
+            else if(objectNum==4){
+                let sideLength = (2.7/(3*Math.sqrt(3)))*height1;
+                ctx.beginPath();
+                ctx.moveTo(x1+width1/2+sideLength*Math.cos(0),y1+height1/2+sideLength*Math.sin(0));
+                for(let i=1;i<6;i++){
+                    ctx.lineTo(x1+width1/2+sideLength*Math.cos(i*2*Math.PI/6),y1+height1/2+sideLength*Math.sin(i*2*Math.PI/6));
+                }
+                ctx.fill();
+                ctx.closePath();
+            }
+    
+    }
+
+
+
+
     function updateArray(cells){
             let copiedCells =[];
         //this function updates the array

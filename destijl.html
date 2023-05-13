@@ -32,7 +32,31 @@
         </nav>
         <canvas id="canvas4"></canvas>
         <div id="controls">
+            <button id="#">Canvas Size</button>
+            <label for="canvas-size-checkbox-equal">Adjust to Screen Equal Sized</label>
+            <input type="checkbox" id="canvas-size-checkbox-equal" name="canvas-size-checkbox-equal" style="color: white;">
+            <label for="canvas-size-checkbox-horizontal">Horizontal</label>
+            <input type="checkbox" id="canvas-size-checkbox-horizontal" name="canvas-size-checkbox-horizontal">
+            <label for="canvas-size-checkbox-horizontal">Screen Vertical</label>
+            <input type="checkbox" id="canvas-size-checkbox-vertical" name="canvas-size-checkbox-vertical">
+            <input type="text" id="canvas-size-height" name="canvas-size-height" value="Height" >
+            <input type="text" id="canvas-size-width" name="canvas-size-width" value="Width" >
+            <button id="canvas_size">Adjust</button>
+            <label for="levelRowColumn">Level of Rows and Columns</label>
+            <input id="levelRowColumn" type="range" min="1" max="50" step="2" value="1" class="range-slider">
+            <label for="lineWidth">Line Width</label>
+            <input id="lineWidth" type="range" min="1" max="50" step="2" value="1" class="range-slider">
             <button id="randomizeArtButton">Randomize Art</button>
+            <button id="applyEffect">Apply Effect</button>
+            <select id="effect">
+                <option value="1">Grain</option>
+                <option value="2">Blur</option>
+                <option value="3">Sharpen</option>
+                <option value="4">Brightness</option>
+                <option value="5">Contrast</option>
+                <option value="6">Hue-Rotate</option>
+
+            </select>
             <button id="clearCanvas">Clear</button>
             <button id="previous">Previous</button>
             <button id="next">Next</button>
