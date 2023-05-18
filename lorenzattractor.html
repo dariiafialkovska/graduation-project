@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Lorenz Attractor</title>
+    <style>
+      canvas {
+        border: 1px solid black;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="lorenzCanvas" width="600" height="400"></canvas>
+    <form>
+        <label>
+            <input type="checkbox" id="draw-lines" /> Draw lines
+          </label>
+      <label for="sigma">Sigma:</label>
+      <input type="range" id="sigma" name="sigma" min="0" max="50" value="10"><br>
+      <label for="rho">Rho:</label>
+      <input type="range" id="rho" name="rho" min="0" max="200" value="28"><br>
+      <label for="beta">Beta:</label>
+      <input type="range" id="beta" name="beta" min="0" max="10" value="2.67"><br>
+      <input type="checkbox" id="animate" name="animate" value="animate">
+      <label for="animate">Animate</label><br>
+      <button type="button" id="draw-once">Draw Once</button>
+    </form>
+    <script src="lorenzattractor.js"></script>
+  </body>
+</html>
